@@ -1,4 +1,5 @@
 from enum import Enum
+import json
 
 # List of subjects
 # Subject = Enum("Subjects", "math history literacy")
@@ -19,17 +20,23 @@ list_of_homework = [
 
 
 # Find homework that you have to do for tomorrow
-homework_for_tomorrow = [];
 
-for subject in tomorrow_subjects:
-    # https://stackoverflow.com/a/4391722
-    homework_number = next((index for (index, d) in enumerate(list_of_homework)
-                            if d["subject"] == subject), None)
+def parser(tomorrow_subjects):
+    homework_for_tomorrow = []
 
-    if(homework_number != None):
-        homework_for_tomorrow.append(list_of_homework[homework_number])
+    for subject in tomorrow_subjects:
+        # https://stackoverflow.com/a/4391722
+        homework_number = next((index for (index, d) in enumerate(list_of_homework)
+                                if d["subject"] == subject), None)
 
+        if(homework_number != None):
+            homework_for_tomorrow.append(list_of_homework[homework_number])
+
+    return homework_for_tomorrow
 
 # Print out homework you have to do for tomorrow
+
+homework_for_tomorrow = parser(tomorrow_subjects)
+
 for homework in homework_for_tomorrow:
     print(homework)
