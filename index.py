@@ -1,9 +1,6 @@
 from enum import Enum
 import json
 
-# List of subjects
-# Subject = Enum("Subjects", "math history literacy")
-
 class Subject(Enum):
     math = "MATH"
     history = "HISTORY"
@@ -18,9 +15,17 @@ list_of_homework = [
     {"subject": Subject.math, "description": "Lorem ipsum dolor sit amet"}
 ]
 
+# Generate list of homework from a JSON string.
+json_filename = "example_data.json"
+
+with open(json_filename) as f:
+    data = json.load(f)
+
+# TODO: Replace subject of a homework with enum one.
+
+print(repr(data))
 
 # Find homework that you have to do for tomorrow
-
 def parser(tomorrow_subjects):
     homework_for_tomorrow = []
 
@@ -35,7 +40,6 @@ def parser(tomorrow_subjects):
     return homework_for_tomorrow
 
 # Print out homework you have to do for tomorrow
-
 homework_for_tomorrow = parser(tomorrow_subjects)
 
 for homework in homework_for_tomorrow:
