@@ -7,7 +7,15 @@ class Subject(Enum):
     literacy = "LITERACY"
 
 # Subjects you have to do homework for tomorrow
-tomorrow_subjects = [Subject.math, Subject.history]
+tomorrow_subjects = [] # [Subject.math, Subject.history]
+
+# Load tomorrow_subjects.json
+with open("tomorrow_subjects.json") as f:
+    tomorrow_subjects_json = json.load(f)
+
+for subject in tomorrow_subjects_json:
+    tomorrow_subjects.append(Subject[subject.lower()])
+
 
 # List of homework
 # list_of_homework = [
