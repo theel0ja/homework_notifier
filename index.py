@@ -6,32 +6,41 @@ class Subject(Enum):
     history = "HISTORY"
     literacy = "LITERACY"
 
-# Subjects you have to do homework for tomorrow
-tomorrow_subjects = [] # [Subject.math, Subject.history]
 
-# Load tomorrow_subjects.json
-with open("tomorrow_subjects.json") as f:
-    tomorrow_subjects_json = json.load(f)
+def get_tomorrow_subjects():
+    # Subjects you have to do homework for tomorrow
+    tomorrow_subjects = []  # [Subject.math, Subject.history]
 
-for subject in tomorrow_subjects_json:
-    tomorrow_subjects.append(Subject[subject.lower()])
+    # Load tomorrow_subjects.json
+    with open("tomorrow_subjects.json") as f:
+        tomorrow_subjects_json = json.load(f)
+
+    for subject in tomorrow_subjects_json:
+        tomorrow_subjects.append(Subject[subject.lower()])
+
+    return tomorrow_subjects
+
+def get_homework():
+    # List of homework
+    #
+    # list_of_homework = [
+    #     {"subject": Subject.literacy, "description": "Lorem ipsum dolor sit amet"},
+    #     {"subject": Subject.math, "description": "Lorem ipsum dolor sit amet"}
+    # ]
+
+    # Generate list of homework from a JSON string.
+    json_filename = "example_data.json"
 
 
-# List of homework
-# list_of_homework = [
-#     {"subject": Subject.literacy, "description": "Lorem ipsum dolor sit amet"},
-#     {"subject": Subject.math, "description": "Lorem ipsum dolor sit amet"}
-#]
+    with open(json_filename) as f:
+        list_of_homework = json.load(f)
 
-# Generate list of homework from a JSON string.
-json_filename = "example_data.json"
-
-with open(json_filename) as f:
-    list_of_homework = json.load(f)
+    return list_of_homework
 
 # Find homework that you have to do for tomorrow
-def parser(tomorrow_subjects):
+def get_homework_for_tomorrow(tomorrow_subjects):
     homework_for_tomorrow = []
+    list_of_homework = get_homework()
 
     for subject in tomorrow_subjects:
         # https://stackoverflow.com/a/4391722
@@ -43,8 +52,11 @@ def parser(tomorrow_subjects):
 
     return homework_for_tomorrow
 
-# Print out homework you have to do for tomorrow
-homework_for_tomorrow = parser(tomorrow_subjects)
+# CLI FOR DEVELOPMENT
+if __name__ == '__main__':
+    # Print out homework you have to do for tomorrow
+    tomorrow_subjects = get_tomorrow_subjects()
+    homework_for_tomorrow = get_homework_for_tomorrow(tomorrow_subjects)
 
-for homework in homework_for_tomorrow:
-    print(homework)
+    for homework in homework_for_tomorrow:
+        print(homework)
