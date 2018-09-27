@@ -38,9 +38,8 @@ def get_homework():
     return list_of_homework
 
 # Find homework that you have to do for tomorrow
-def get_homework_for_tomorrow(tomorrow_subjects):
+def get_homework_for_tomorrow(tomorrow_subjects, list_of_homework):
     homework_for_tomorrow = []
-    list_of_homework = get_homework()
 
     for subject in tomorrow_subjects:
         # https://stackoverflow.com/a/4391722
@@ -55,8 +54,10 @@ def get_homework_for_tomorrow(tomorrow_subjects):
 # CLI FOR DEVELOPMENT
 if __name__ == '__main__':
     # Print out homework you have to do for tomorrow
-    tomorrow_subjects = get_tomorrow_subjects()
-    homework_for_tomorrow = get_homework_for_tomorrow(tomorrow_subjects)
+    homework_for_tomorrow = get_homework_for_tomorrow(
+        get_tomorrow_subjects(),
+        get_homework()
+    )
 
     for homework in homework_for_tomorrow:
         print(homework)

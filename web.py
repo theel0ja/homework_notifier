@@ -30,4 +30,4 @@ def api_get_homework():
 
 @app.route("/api/homework/for_tomorrow")
 def api_get_homework_for_tomorrow():
-    return jsonify(get_homework_for_tomorrow())
+    return jsonify(get_homework_for_tomorrow(get_tomorrow_subjects(), get_homework()))
